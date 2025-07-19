@@ -5,9 +5,33 @@
 </head>
 <body>
   <h2>Paste Video URL:</h2>
-  <input type="text" id="videoUrl" style="width:80%;" placeholder="https://..."/>
+  <input type="text" id="videoUrl" style="width:80%;" placeholder="https://"/>
   <button onclick="download()">Download</button>
   <p id="status"></p>
-<script src="script.js"></script>
+
+<script>
+function download() {
+  const url = document.getElementById('videoUrl').value;
+  const status = document.getElementById('status');
+  status.innerText = 'Processing...';
+
+  fetch('https://YOUR_VERCEL_URL/api/download?url=' + encodeURIComponent(url))
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.blob();
+    })
+    .then(blob => {
+      const downloadUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = 'video.mp4';
+      a.click();
+      status.innerText = 'Downloaded!';
+    })
+    .catch(() => {
+      status.innerText = 'Error during download!';
+    });
+}
+</script>
 </body>
 </html>
