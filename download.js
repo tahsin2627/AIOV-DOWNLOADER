@@ -8,7 +8,7 @@ export default async function (req, res) {
     res.status(400).send('Missing URL');
     return;
   }
-  const ytPath = path.join(process.cwd(), 'yt-dlp'); // Binary must be uploaded here
+  const ytPath = path.join(process.cwd(), 'yt-dlp'); // ensure this binary is uploaded
   const outputPath = path.join('/tmp', 'video.mp4');
 
   try {
