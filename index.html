@@ -15,7 +15,7 @@ function download() {
   const status = document.getElementById('status');
   status.innerText = 'Processing...';
 
-  fetch('https://aiov-downloader.vercel.app/api/download?url=' + encodeURIComponent(url))
+  fetch('https://aiov-downloader.vercel.app/' + encodeURIComponent(url))
     .then(res => {
       if (!res.ok) throw new Error('Network response was not ok');
       return res.blob();
